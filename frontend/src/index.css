@@ -1,0 +1,124 @@
+.heading {
+    text-align: center;
+    margin-bottom: 20px;
+    
+    color: white;
+    
+    
+    
+
+  }
+  
+  .formstart {
+    width: 300px;
+    margin: auto; 
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #140404; /* Dark grey background color */
+    box-shadow: 0px 0px 0px 5px rgba(10, 2, 9, 0.945); /* Box shadow */
+
+
+
+
+
+  }
+  
+  .labelstart {
+    margin-bottom: 10px;
+  }
+  
+  .labelstart label {
+    display: inline-block;
+    width: 100px;
+    font-weight: bold;
+  }
+  
+  .inputstart {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .gender {
+    width: 204px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+
+  .lab{
+    color: white;
+  }
+  
+  body{
+    /* background-color: #4d075ff1; */
+    background-image: url(../public/images/bg4.jpg);
+    background-size: cover; /* Cover the entire background */
+  /* background-position: center;  */
+  background-repeat: no-repeat; /* Do not repeat the background image */
+  margin: 0; 
+  padding: 0;  
+  color: white; /* Default text color for the body */
+  font-family: Arial, sans-serif;
+  
+  
+  }
+
+
+  /* index.css */
+
+
+  .btn1 {
+    padding: 12px 20px; /* Modified padding values */
+  
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px; 
+    font-size: medium;
+
+    
+  }
+
+.btn1:hover {
+  background-color: #0056b3;
+}
+
+
+
+.login span {
+  background-color: #007bff;; /* Blue background color */
+  color: white; /* White text color */
+  padding: 5px 10px; /* Added padding for better appearance */
+  border-radius: 5px; /* Rounded corners */
+}
+
+
+
+.container {
+  display: flex;  
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
