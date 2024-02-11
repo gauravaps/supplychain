@@ -1,24 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 
-import {toast,ToastContainer} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const ToastShow = ({msg,errortype,showToast}) => {
-  
-  const tostfy=()=>{
-    toast[errortype](msg,{
-      autoClose:3000
-    })
-  }
+const ToastShow = ({ msg, errortype, showToast }) => {
+  const tostfy = () => {
+    toast[errortype](msg, {
+      position: "top-center",
+      autoClose: 3000,
 
-  useEffect(()=>{
-    if(showToast){
-      tostfy()
+      theme: "dark",
+    });
+  };
+
+  useEffect(() => {
+    if (showToast) {
+      tostfy();
     }
-  },[showToast])
-  return (
-    <ToastContainer/>
-  )
-}
+  }, [showToast]);
+  return <ToastContainer />;
+};
 
-export default ToastShow
+export default ToastShow;

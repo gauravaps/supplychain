@@ -16,7 +16,8 @@ const AdminLogin = () => {
         email: "",
         password: "",
       });
-
+      
+//set handelchange value and name property
       const handelchange = (e) => {
         const { name, value } = e.target;
         setuserdata({ ...userdata, [name]: value });
@@ -45,6 +46,9 @@ const AdminLogin = () => {
               setshowToast(false)
 
             },3000)
+            
+            //set again empty input field
+            setuserdata({email:'',password:''})
 
 
             }
@@ -83,6 +87,7 @@ const AdminLogin = () => {
             name="email"
             placeholder=" enter ypur email"
             onChange={handelchange}
+            value={userdata.email}
           />
         </div>
 
@@ -94,6 +99,7 @@ const AdminLogin = () => {
             name="password"
             placeholder="enter your password"
             onChange={handelchange}
+            value={userdata.password}
           />
         </div>
 

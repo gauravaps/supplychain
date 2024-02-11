@@ -3,6 +3,7 @@ import {Routes,Route, useNavigate} from 'react-router-dom'
 import AdminLogin from './Admincomponents/AdminLogin'
 import AdminHome from './Admincomponents/AdminHome'
 import axios from 'axios'
+import AdminPassword from './Admincomponents/AdminPassword'
 
 const App = () => {
   const token=localStorage.getItem('token')
@@ -54,6 +55,7 @@ const App = () => {
       <Routes>
         <Route path='/adminlogin' element={<AdminLogin/>}/>
         <Route path='/adminhome' element={<AdminHome/>}/>
+        <Route path='/adminpassword' element={<AdminPassword/>}/>
       </Routes>
 
 
