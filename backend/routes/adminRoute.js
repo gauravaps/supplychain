@@ -1,7 +1,9 @@
 const express=require('express')
 const route=express.Router()
 
-const {addAdmin,adminLogin,checkToken,changeAdmintPassword} =require('../controllers/adminController')
+const {addAdmin,adminLogin,checkToken,
+    changeAdmintPassword,emailverificationLink,
+     adminnewpassreset} =require('../controllers/adminController')
 
 
 //ADD ADMIN ROUTE..
@@ -23,6 +25,21 @@ route.post('/tokencheck',checkToken)
 //http://localhost:5000/api/adminpass
 
 route.patch('/changepass/:id',changeAdmintPassword)
+
+//SEND ADMIN PASSWORD RESET LINK
+//http://localhost:5000/api/adminpassreset
+
+route.post('/adminpassreset',emailverificationLink)
+
+//admin set new password
+//http://localhost:5000/api/adminnewpass
+
+route.post('/adminnewpass',adminnewpassreset)
+//route.post('/adminnewpass/:resetToken', adminnewpassreset);
+
+
+
+
 
 
 

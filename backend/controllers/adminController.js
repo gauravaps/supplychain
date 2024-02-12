@@ -3,6 +3,10 @@ const adminuser=require('../models/adminUser')
 const tokens=require('../models/token')
 const bcrypt = require("bcryptjs");
 const jwt =require('jsonwebtoken')
+const adminpassResetmodel=require('../models/adminpassreset')
+const sentmail=require('../commoncomponent/mailverification')
+const shortid=require('shortid')
+//const sendMail=require('../test')
 
 
 
@@ -155,10 +159,81 @@ const changeAdmintPassword=async(req,res)=>{
     }
 }
 
+//SEND EMAIL VERIFICATION LINK
+
+const emailverificationLink=async(req,res)=>{
+
+    try {
+        const {email}=req.body;
+
+        //find eamil id
+        const findemail=await adminuser.findOne({email})
+
+        if(!findemail){
+         return   res.status(400).json({'sts':1,message:'Email id not found'})
+        }else{
+            const subject='Admin:reset your password';
+            const resetToken=shortid.generate();
+            const expiresAt=new Date(Date.now()+(60*60*1000))
+            const text = `http://localhost:3000/adminpassreset/${resetToken}`;
+            
+
+
+            const saveAdmintokenmodel = new adminpassResetmodel({
+                email,
+                resetToken,
+                expiresAt
+            })
+            const saveAdminResetToken=await saveAdmintokenmodel.save();
+           // res.status(200).json({message:'admin password reset token model save successfully','token':saveAdminResetToken})
+            
+          await sentmail('gauravchotu58@gmail.com', subject, text); // Wait for the email sending process to finish
+                //await sendMail()
+
+           return  res.status(200).json({'sts':0,message:'your reset link has been sent','your url':text})
+      
+        }
 
 
 
-module.exports = { addAdmin,adminLogin,checkToken ,changeAdmintPassword};
+        
+    } catch (error) {
+      return   res.status(500).json({message:'your resent link has been failed','error':error})
+        
+    }
+}
+
+//NEW PASSWORD ENTER
+
+const adminnewpassreset=async(req,res)=>{
+
+    try {
+        const resetToken=req.body.resetToken;;
+        const password=await bcrypt.hash(req.body.password,10)
+
+        const findtoken=await adminpassResetmodel.findOne({resetToken})
+
+        if(!findtoken){
+          return  res.status(400).json({'sts':1,message:'your token has been expired'})
+        }else{
+            const email=findtoken.email;
+            const updatepassword=await adminuser.findOneAndUpdate({email:email},{$set:{password:password}},{new:true})
+
+            const deletetoken=await adminpassResetmodel.findOneAndDelete({resetToken})
+            return res.status(200).json({'sts':0,message:'password updated successfully'})
+
+        }
+        
+        
+    } catch (error) {
+        return res.status(500).json({'error':error,message:"password updation failed"})
+        
+    }
+}
+
+
+
+module.exports = { addAdmin,adminLogin,checkToken ,changeAdmintPassword,emailverificationLink,adminnewpassreset}; 
 
 
 
