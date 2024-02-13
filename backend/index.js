@@ -3,6 +3,7 @@ const cors=require('cors')
 const bodyparser=require('body-parser')
 const db=require('./dataBaseConnection/dbconnection')
 const route =require('./routes/adminRoute')
+const catroute =require('./routes/categoryRoute')
 
 //DOTENV FILE CONFIGURE
 require('dotenv').config()
@@ -27,6 +28,9 @@ const port=process.env.PORT || 8000
 
 // ADMIN-USER ROUTE..
 app.use('/api',route) 
+
+//CATEGORY ROUTE..
+app.use('/cat',catroute)
  
 
 

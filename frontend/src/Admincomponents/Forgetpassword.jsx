@@ -2,7 +2,11 @@ import axios from "axios";
 import React, { useState } from "react";
 import ToastShow from "../commonComponent/ToastShow";
 
+
 const Forgetpassword = () => {
+
+  
+
   const [msg, setmsg] = useState("");
   const [errortype, seterrortype] = useState("");
   const [showToast, setshowToast] = useState(false);
@@ -24,6 +28,7 @@ const Forgetpassword = () => {
         adminemail
       );
       if (res.data.sts === 0) {
+        localStorage.setItem('resettoken',res.data.resettoken)
         setshowToast(true);
         setmsg(res.data.message);
         seterrortype("success");

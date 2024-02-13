@@ -1,15 +1,27 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const ResetpassLink = () => {
+
+
   const { resetToken } = useParams();
 
-  //const [resetToken, setResetToken] = useState(rtoken);
+  const apiUrl = `http://localhost:5000/api/adminnewpass/${resetToken}`;
+
+  useEffect(() => {
+  
+    const apiUrl = `http://localhost:5000/api/adminnewpass/${resetToken}`;
+  }, [resetToken]);
+  
+
+
+
+  
 
   const [adminpassword, setadminpassword] = useState({
     password: "",
-    resetToken: resetToken,
+    
   });
 
   const handelchange = (e) => {
@@ -23,17 +35,14 @@ const ResetpassLink = () => {
 
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/adminnewpass",
-        adminpassword
-      );
-
+      const res = await axios.post( apiUrl, adminpassword );
 
       if (res.data.sts === 0) {
         console.log("password upadated");
       }
 
       console.log(res);
+      
 
 
     } catch (error) {

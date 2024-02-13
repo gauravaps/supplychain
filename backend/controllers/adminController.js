@@ -6,7 +6,6 @@ const jwt =require('jsonwebtoken')
 const adminpassResetmodel=require('../models/adminpassreset')
 const sentmail=require('../commoncomponent/mailverification')
 const shortid=require('shortid')
-//const sendMail=require('../test')
 
 
 
@@ -187,10 +186,10 @@ const emailverificationLink=async(req,res)=>{
             const saveAdminResetToken=await saveAdmintokenmodel.save();
            // res.status(200).json({message:'admin password reset token model save successfully','token':saveAdminResetToken})
             
-          await sentmail('gauravchotu58@gmail.com', subject, text); // Wait for the email sending process to finish
+          await sentmail(email, subject, text); // Wait for the email sending process to finish
                 //await sendMail()
 
-           return  res.status(200).json({'sts':0,message:'your reset link has been sent','your url':text})
+           return  res.status(200).json({'sts':0,message:'your reset link has been sent','your url':text,'resettoken':resetToken})
       
         }
 
@@ -223,7 +222,7 @@ const adminnewpassreset=async(req,res)=>{
             return res.status(200).json({'sts':0,message:'password updated successfully'})
 
         }
-        
+
         
     } catch (error) {
         return res.status(500).json({'error':error,message:"password updation failed"})

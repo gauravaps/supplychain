@@ -47,6 +47,14 @@ const App = () => {
 
     }
   },[token])
+//if token available in local storage
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        navigate('/adminhome');
+    }
+}, []);
+
   
 
 
