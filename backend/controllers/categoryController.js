@@ -8,26 +8,51 @@ const shortid=require('shortid')
 const addCategory = async (req, res) => {
     try {
         // Extract productname and pictures from request body
-        const { productname } = req.body;
-        const pictures = req.file.path;
+        const { productname,producttype } = req.body;
+        const pictures = req.file.filename;
 
         // Check if productname or pictures are missing
-        if (!productname || !pictures) {
-            return res.status(400).json({ message: "All fields are required, please fill" });
+         if (!productname || !pictures) {
+             return res.status(400).json({'sts':1,  message: "All fields are required, please fill" });
         }
 
         // Create a new categoryProduct object with productname and pictures
-        const addproduct = new categoryProduct({ productname: productname, pictures: pictures });
+        const addproduct = new categoryProduct({ productname: productname, producttype:producttype,pictures: pictures });
 
         // Save the new product
         const saveProduct = await addproduct.save();
 
         // Return success response with the saved product
-        res.status(200).json({ message: "Product successfully added", 'product': saveProduct });
+      return  res.status(200).json({'sts':0, message: "Product successfully added", 'product': saveProduct });
     } catch (error) {
         // Return error response if any error occurs
-        res.status(500).json({ message: 'Add product category failed', 'error': error });
+      return  res.status(500).json({'sts':0, message: 'Add product category failed', 'error': error });
     }
+}
+
+//GET ALL CATEGORY PRODUCT
+
+const getCategory =async(req,res)=>{
+
+    try {
+        
+
+        const getData= await categoryProduct.find()
+
+        //if no user found
+        if (!getData) {
+            res.status(400).json({'sts':1,message:'No user found'})
+            
+        } else {
+            res.status(200).json({'sts':0,message:'getting users successfully','users':getData})
+            
+        }
+        
+    } catch (error) {
+        res.status(500).json({'sts':2,message:'something in server  error','error':error})
+        
+    }
+
 }
 
 
@@ -36,5 +61,5 @@ const addCategory = async (req, res) => {
 
 
 
-module.exports={addCategory}
+module.exports={addCategory,getCategory}
 

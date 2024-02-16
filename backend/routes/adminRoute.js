@@ -3,7 +3,7 @@ const route=express.Router()
 
 const {addAdmin,adminLogin,checkToken,
     changeAdmintPassword,emailverificationLink,
-     adminnewpassreset} =require('../controllers/adminController')
+     adminnewpassreset,logoutadmin} =require('../controllers/adminController')
 
 
 //ADD ADMIN ROUTE..
@@ -28,14 +28,19 @@ route.patch('/changepass/:id',changeAdmintPassword)
 
 //SEND ADMIN PASSWORD RESET LINK
 //http://localhost:5000/api/adminpassreset
-
 route.post('/adminpassreset',emailverificationLink)
 
 //admin set new password
 //http://localhost:5000/api/adminnewpass
-
 route.post('/adminnewpass',adminnewpassreset)
-//route.post('/adminnewpass/:resetToken', adminnewpassreset);
+
+//LOGout adminUser
+//http://localhost:5000/api/adminlogout
+route.post('/adminlogout',logoutadmin)
+
+
+
+
 
 
 

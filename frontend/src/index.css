@@ -1,13 +1,18 @@
-.heading {
+/* .heading {
     text-align: center;
     margin-bottom: 20px;
     
     color: white;
-    
-    
-    
 
-  }
+  } */
+
+  .heading {
+    text-align: center;
+    margin-bottom: 20px;
+    color: black; 
+    /* background-color: black;  */
+}
+
   
   .formstart {
     width: 300px;
@@ -124,7 +129,7 @@
 }
 
 
-.forlink{
+.datalink{
   
     
     background-color: #007bff;
@@ -134,4 +139,90 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     text-decoration: none;
+    margin-left: 30px;
+    font-size: larger;
+    
+
+}
+
+
+
+/* css for get categore Data.. */
+
+.div1 {
+  margin: 20px;
+  padding-top: 20px;
+}
+
+.prohead {
+  font-size: 17px;
+  margin-bottom: 5px;
+  align-items: center;
+  text-align: center;
+}
+
+.loading {
+  font-size: 18px;
+  font-style: italic;
+  color: gray;
+}
+
+.div2 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.div3 {
+  width: 250px; /* Custom width as per your requirement */
+  margin: 17px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color:black; /* Custom background color */
+  text-align: center;
+  position: relative; /* Make the position of the button relative to the card */
+}
+
+.proImg {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.proname {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.protype {
+  font-size: 14px;
+  
+  font-weight: 700;
+  padding-bottom: 17px;
+}
+
+.prodelete {
+  position: absolute; /* Position the delete button absolutely */
+  bottom: 10px; /* Position it 10px from the bottom */
+  left: 50%; /* Position it in the center horizontally */
+  transform: translateX(-50%); /* Center it perfectly */
+  padding: 8px 16px;
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.prodelete:hover {
+  background-color: #cc0000;
+}
+
+.forlink{
+  color: #fff;
+  background-color:#007bff ;
+}
+
+.forget{
+  color: #fff;
 }

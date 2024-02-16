@@ -230,9 +230,33 @@ const adminnewpassreset=async(req,res)=>{
     }
 }
 
+//LOGout adminUser 
+const logoutadmin = async (req, res) => {
+    try {
+        // Get the token from the request headers
+        const {token} = req.body;
+       //const token= req.headers.authorization
+
+        if (!token) {
+            return res.status(401).json({'sts':1, message: "Unauthorized: No token provided" });
+        }
+
+        // Remove the token from the database
+        await tokens.findOneAndDelete({ token });
+
+        // Sending success response
+        return res.status(200).json({'sts':0, message: "User logged out successfully" });
+    } catch (error) {
+        console.error('Error in logout:', error);
+        return res.status(500).json({'sts':2, message: 'Internal server error' });
+    }
+};
 
 
-module.exports = { addAdmin,adminLogin,checkToken ,changeAdmintPassword,emailverificationLink,adminnewpassreset}; 
+
+module.exports = { addAdmin,adminLogin,checkToken ,
+    changeAdmintPassword,emailverificationLink,
+    adminnewpassreset, logoutadmin}; 
 
 
 

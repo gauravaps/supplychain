@@ -5,10 +5,14 @@ const productcategorschema=new mongoose.Schema({
         type:String,
         required:true
     },
+    producttype:{
+        type:String
+    },
     pictures:{
         type:String,
-        required:true
+        
     },
+
 },{timestamps:true})
 
 const categoryProduct=mongoose.model('categoryPoduct',productcategorschema)

@@ -88,8 +88,7 @@ const AdminLogin = () => {
           </div>
           <br />
 
-          <span>
-            Forget password:
+          <span className="forget">          Forget password:
             <Link className="forlink" to={"/forgetpass"}>
               Click here
             </Link>

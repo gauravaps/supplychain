@@ -4,6 +4,7 @@ const bodyparser=require('body-parser')
 const db=require('./dataBaseConnection/dbconnection')
 const route =require('./routes/adminRoute')
 const catroute =require('./routes/categoryRoute')
+const path =require('path')
 
 //DOTENV FILE CONFIGURE
 require('dotenv').config()
@@ -22,6 +23,9 @@ app.use(cors(corsOptions));
 //use body-parser for json and URL incoded..
 app.use(bodyparser.urlencoded({extended:false}))
 app.use(bodyparser.json())
+//app.use('/uploads', express.static('uploads'));
+
+
 
 const port=process.env.PORT || 8000
 
@@ -31,6 +35,9 @@ app.use('/api',route)
 
 //CATEGORY ROUTE..
 app.use('/cat',catroute)
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
  
 
 
