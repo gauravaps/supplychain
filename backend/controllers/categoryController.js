@@ -3,6 +3,11 @@ const adminuser=require('../models/adminUser')
 const tokens=require('../models/token')
 const adminpassResetmodel=require('../models/adminpassreset')
 const shortid=require('shortid')
+const fs = require('fs'); 
+const path =require('path')
+
+
+
 
 // ADD PRODUCT CATEGORY
 const addCategory = async (req, res) => {
@@ -10,6 +15,8 @@ const addCategory = async (req, res) => {
         // Extract productname and pictures from request body
         const { productname,producttype } = req.body;
         const pictures = req.file.filename;
+        console.log('req.file:', pictures);
+        console.log(req.file.path);
 
         // Check if productname or pictures are missing
          if (!productname || !pictures) {
@@ -56,10 +63,37 @@ const getCategory =async(req,res)=>{
 }
 
 
+//DELETECategory Products
+
+const deleteCategory =async(req,res)=>{
+    
+
+    try {
+        const {id} = req.params; // req.params se ID ko nikalna
+        ;
+
+        const productId= await categoryProduct.findByIdAndDelete(id)
+
+        
+
+        if(!productId){
+         return   res.status(400).json({'sts':1,message:'No product found'})
+        }else{
+            fs.unlinkSync(`./uploads/${productId.pictures}`)
+        
+         return   res.status(200).json({'sts':0,message:'product successfully deleted'})
+        }
+        
+    } catch (error) {
+        res.status(500).json({'sts':2,message:'product deleted failed' ,'error':error})
+        
+    }
+}
 
 
 
 
 
-module.exports={addCategory,getCategory}
+
+module.exports={addCategory,getCategory,deleteCategory}
 
