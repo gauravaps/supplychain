@@ -32,7 +32,7 @@ const handleLogout = async () => {
 
 const AdminLogout = () => {
     return (
-        <button onClick={handleLogout}>Logout</button>
+        <button className='logoutbtn' onClick={handleLogout}>Logout</button>
     );
 };
 

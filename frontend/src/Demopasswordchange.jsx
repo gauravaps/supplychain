@@ -1,59 +1,150 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import {Routes,Route, useNavigate, Router, Navigate} from 'react-router-dom'
+import AdminLogin from './Admincomponents/AdminLogin'
+import AdminHome from './Admincomponents/AdminHome'
+import axios from 'axios'
+import AdminPassword from './Admincomponents/AdminPassword'
+import Forgetpassword from './Admincomponents/Forgetpassword'
+import ResetpassLink from './Admincomponents/ResetpassLink'
+import CategoryAdd from './Category/CategoryAdd'
+import GetcategoryProduct from './Category/GetcategoryProduct'
 
-function ChangePassword() {
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [message, setMessage] = useState('');
 
-  const handleChangePassword = async () => {
-    const userId = localStorage.getItem("uid");
-    const url = `http://localhost:5000/api/changepassword/${userId}`;
+const App = () => {
+  const token=localStorage.getItem('token')
+  const navigate=useNavigate()
+  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-    try {
-      const response = await axios.post(url, {
-        oldpassword: oldPassword,
-        newpassword: newPassword
-      });
+  //CHECK token is available in data base or NOT.
+  
+  // useEffect(()=>{
+  //   const gettoken=async()=>{
+  //     try {
+  //       const res =await axios.post("http://localhost:5000/api/tokencheck",{token:token})
 
-      if (response.status === 200) {
-        setMessage(response.data.message); // Password updated successfully message
-        // You can perform additional actions here, such as redirecting the user or displaying a success message.
-      } else {
-        setMessage(response.data.message); // Error message from the server
-        // Handle error, display error message to the user, etc.
+  //       if(res.data.sts===0){
+  //         navigate('/adminhome');
+
+  //         console.log("Token received successfully!");
+  //       }
+        
+
+  //     } catch (error) {
+  //       if(error.response?.data?.sts===1){
+          
+  //         localStorage.removeItem('token')
+  //         localStorage.removeItem('adminname')
+  //         localStorage.removeItem('adminid')
+
+  //         navigate('/adminlogin')  
+  //       }
+  //       console.log(error);
+        
+  //     }
+
+  //   }
+  //   gettoken()
+
+  // },[])
+
+  // if no token is null in local storage..
+  // useEffect(()=>{
+  //   const token=localStorage.getItem('token')
+  //   if(token===null){
+  //     navigate('/adminlogin') 
+
+  //   }
+  // },[token])
+
+
+//if token available in local storage
+
+//   useEffect(() => {
+//     const token = localStorage.getItem('token');
+//     if (token) {
+//         navigate('/adminhome');
+//     }
+// }, []);
+
+//check if logedin or Not..
+
+useEffect(() => {
+  const checkLoggedInStatus = async () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const res = await axios.post("http://localhost:5000/api/tokencheck", { token });
+        if (res.data.sts === 0) {
+          
+          setIsLoggedIn(true);
+        }
+      } catch (error) {
+        if(error.response?.data?.sts===1){
+          
+                  localStorage.removeItem('token')
+                  localStorage.removeItem('adminname')
+                  localStorage.removeItem('adminid')
+                  navigate('/adminlogin')
+        
+        console.error(error);
+        setIsLoggedIn(false);
       }
-    } catch (error) {
-      console.error('Something went wrong:', error); // Network error or other errors
-      // Handle error, display error message to the user, etc.
-    }
+    }}
+    setLoading(false);
   };
 
-  return (
-    <div>
-      <h2>Change Password</h2>
-      <div>
-        <label htmlFor="oldPassword">Old Password:</label>
-        <input
-          type="password"
-          id="oldPassword"
-          value={oldPassword}
-          onChange={(e) => setOldPassword(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="newPassword">New Password:</label>
-        <input
-          type="password"
-          id="newPassword"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-        />
-      </div>
-      <button onClick={handleChangePassword}>Change Password</button>
-      {message && <p>{message}</p>}
-    </div>
-  );
+  checkLoggedInStatus();
+}, []);
+
+if (loading) {
+  return <div>Loading...</div>;
 }
 
-export default ChangePassword;
+
+  
+
+
+
+
+  return (
+    
+    <div>
+    
+       <Routes>
+
+
+        {/* <Route  path='/adminlogin' element={<AdminLogin/>}/>
+        <Route path='/adminhome' element={<AdminHome/>}/>
+        <Route path='/adminpassword' element={<AdminPassword/>}/>
+        <Route path='/forgetpass'element={<Forgetpassword/>}/>
+        <Route path='/adminpassreset/:resetToken' element={<ResetpassLink/>}/>
+        <Route path='/categoryadd' element={<CategoryAdd/>}/>
+        <Route path='/getcategory' element={<GetcategoryProduct/>}/>   */}
+
+         
+        {/* <Route path='/adminlogin' element={isLoggedIn ? <Navigate to="/adminhome" /> : <AdminLogin />} />  */}
+
+        <Route path='/adminlogin' element={isLoggedIn ? <Navigate to="/adminhome" /> : <AdminLogin/>} />
+
+
+        <Route path='/adminhome' element={isLoggedIn ? <AdminHome /> : <Navigate to="/adminlogin" />} />
+        <Route path='/adminpassword' element={isLoggedIn ? <AdminPassword /> : <Navigate to="/adminlogin" />} />
+        <Route path='/forgetpass' element={isLoggedIn ? <Forgetpassword /> : <Navigate to="/adminlogin" />} />
+        <Route path='/adminpassreset/:resetToken' element={<ResetpassLink />} />
+        <Route path='/categoryadd' element={isLoggedIn ? <CategoryAdd /> : <Navigate to="/adminlogin" />} />
+        <Route path='/getcategory' element={isLoggedIn ? <GetcategoryProduct /> : <Navigate to="/adminlogin" />} />
+  
+
+
+        
+      </Routes>
+       </div> 
+
+
+  
+  )
+}
+
+//export default App;

@@ -31,10 +31,13 @@ const AdminLogin = () => {
       );
 
       if (res.data.sts === 0) {
+        navigate("/adminhome");
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("adminname", res.data.fname);
         localStorage.setItem("adminid", res.data.adminid);
-        navigate("/adminhome");
+        
+       //window.location.href = '/adminhome';
+
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.sts) {

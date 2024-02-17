@@ -6,7 +6,7 @@ const GetcategoryProduct = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
+   
         const fetchProducts = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/cat/getcategory');
@@ -17,9 +17,39 @@ const GetcategoryProduct = () => {
                 setLoading(false);
             }
         };
+       // fetchProducts()
+        useEffect(() => {
 
         fetchProducts();
     }, []);
+
+    // Delete product
+
+    const deleteproduct=async(id)=>{
+        try {
+            const res =await axios.delete(`http://localhost:5000/cat/deletecategory/${id}`);
+
+            if(res.data.sts===0){
+                console.log('product deleted successfully');
+                fetchProducts()
+
+                
+
+            }
+
+            
+        } catch (error) {
+            console.log('product failed to delete');
+            console.log('error',error);
+            
+        }
+    }
+
+
+
+
+
+
 
     return (
         <div className='div1'>
@@ -37,7 +67,7 @@ const GetcategoryProduct = () => {
                             
                             <h3 className='proname'>Name:{product.productname}</h3>
                             <p className='protype'>Type: {product.producttype}</p>
-                            <button className='prodelete'>Delete</button>
+                            <button onClick={()=>deleteproduct(product._id)} className='prodelete'>Delete</button>
                         </div>
                         
                     ))}

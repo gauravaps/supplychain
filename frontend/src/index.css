@@ -226,3 +226,16 @@
 .forget{
   color: #fff;
 }
+
+.logoutbtn{
+  padding-left:  10px;
+  background-color: #333;
+  color:#fff;
+  margin-left: 5px;
+  cursor: pointer;
+
+}
+
+.logoutbtn:hover{
+  color: #ccc;
+}

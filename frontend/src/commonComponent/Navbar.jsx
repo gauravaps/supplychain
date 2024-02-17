@@ -16,10 +16,10 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="navbar-brand">
-                <Link to="/" className="navbar-logo">Supply-Chain</Link>
+                <Link to="/adminhome" className="navbar-logo">Supply-Chain</Link>
             </div>
             <div className="navbar-items">
-                <Link to="/" className="navbar-item">Home</Link>
+                <Link to="/adminhome" className="navbar-item">Home</Link>
                 <Link to="/categoryadd" className="navbar-item"> Category </Link>
                  <span className='name'>Admin:{ adminname}</span>
                 <Link className="navbar-item" to={'/adminpassword'}>Change password</Link>
