@@ -5,12 +5,6 @@ const handleLogout = async () => {
     try {
         const token = localStorage.getItem('token');
 
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         Authorization: `Bearer ${token}`
-        //     }
-        // };
 
         // Logout request to the server
         const response = await axios.post('http://localhost:5000/api/adminlogout',  {token:token});

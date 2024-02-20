@@ -16,7 +16,7 @@ const addCategory = async (req, res) => {
     console.log(req.file.path);
 
     // Check if productname or pictures are missing
-    if (!productname || !pictures) {
+    if (!productname || !producttype ) {
       return res
         .status(400)
         .json({ sts: 1, message: "All fields are required, please fill" });
@@ -44,7 +44,7 @@ const addCategory = async (req, res) => {
     // Return error response if any error occurs
     return res
       .status(500)
-      .json({ sts: 0, message: "Add product category failed", error: error });
+      .json({ sts: 2, message: "Add product category failed", error: error });
   }
 };
 

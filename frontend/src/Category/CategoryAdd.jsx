@@ -15,7 +15,7 @@ const CategoryAdd = () => {
 
   const [formData, setFormData] = useState({
     productname: "",
-    productype: "",
+    producttype: "",
     pictures: null,
   });
 
@@ -35,7 +35,7 @@ const CategoryAdd = () => {
     try {
       const formDataToSend = new FormData();
       formDataToSend.append("productname", formData.productname);
-      formDataToSend.append("productype", formData.productype);
+      formDataToSend.append("producttype", formData.producttype);
       formDataToSend.append("pictures", formData.pictures);
 
       const res = await axios.post(
@@ -55,7 +55,7 @@ const CategoryAdd = () => {
       // Clear form after successful submission if needed
       setFormData({
         productname: "",
-        productype: "",
+        producttype: "",
         pictures: null,
       });
     } catch (error) {
@@ -115,8 +115,8 @@ const CategoryAdd = () => {
             <input
               type="text"
               className="inputstart"
-              name="productype"
-              value={formData.productype}
+              name="producttype"
+              value={formData.producttype}
               onChange={handleInputChange}
             />
           </div>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import ToastShow from "../commonComponent/ToastShow";
+import Navbar from "../commonComponent/Navbar";
 
 const AdminPassword = () => {
   const [msg, setmsg] = useState("");
@@ -56,6 +57,7 @@ const AdminPassword = () => {
 
   return (
     <div className="container">
+      <Navbar/>
       <div className="heading">
         <div className="login">
           <h2>

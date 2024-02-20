@@ -4,6 +4,7 @@ const bodyparser=require('body-parser')
 const db=require('./dataBaseConnection/dbconnection')
 const route =require('./routes/adminRoute')
 const catroute =require('./routes/categoryRoute')
+const proRoute =require('./routes/productRoute')
 const path =require('path')
 
 //DOTENV FILE CONFIGURE
@@ -35,6 +36,9 @@ app.use('/api',route)
 
 //CATEGORY ROUTE..
 app.use('/cat',catroute)
+
+//PRODUCT ROUTE
+app.use('/pro',proRoute)
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

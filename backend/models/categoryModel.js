@@ -6,7 +6,8 @@ const productcategorschema=new mongoose.Schema({
         required:true
     },
     producttype:{
-        type:String
+        type:String,
+        required:true
     },
     pictures:{
         type:String,
