@@ -368,3 +368,20 @@
 .gettd {
   text-align: center;
 }
+
+.proindiv {
+  width: 250px;
+  margin-left: 41%;
+  margin-top: -1%;
+  padding-bottom: 30px;
+  
+
+}
+
+.proinput{
+  font-size: large;
+
+
+  
+  text-align: center;
+}

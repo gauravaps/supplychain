@@ -38,9 +38,7 @@ const getAllProducts =async(req,res)=>{
 
     try {
         const showAllProducts =await productDB.find().populate('procategory')
-        const proNames = showAllProducts.map(product =>(product.proname,product.prolongdesc)); // Sabhi products ke proname ko ek array mein collect karna
-
-        console.log(proNames);
+        
 
         if (!showAllProducts) {
             res.status(400).json({'sts':1,message:'No products found'})
@@ -54,8 +52,8 @@ const getAllProducts =async(req,res)=>{
 
                 
             }))
-            console.log(prodata);
             
+
             res.status(200).json({'sts':0,message:'this is your all products',
             'allpro':showAllProducts ,'prodata':prodata,
         })
