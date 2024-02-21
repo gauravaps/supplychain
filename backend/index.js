@@ -40,7 +40,12 @@ app.use('/cat',catroute)
 //PRODUCT ROUTE
 app.use('/pro',proRoute)
 
+//for category static path
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+//for product static path
+app.use('/prouploads', express.static(path.join(__dirname, 'prouploads')));
+
 
  
 

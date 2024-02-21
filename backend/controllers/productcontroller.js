@@ -32,6 +32,41 @@ const addproduct= async(req,res)=>{
     }
 }
 
+// GET all products ..
+
+const getAllProducts =async(req,res)=>{
+
+    try {
+        const showAllProducts =await productDB.find().populate('procategory')
+        const proNames = showAllProducts.map(product =>(product.proname,product.prolongdesc)); // Sabhi products ke proname ko ek array mein collect karna
+
+        console.log(proNames);
+
+        if (!showAllProducts) {
+            res.status(400).json({'sts':1,message:'No products found'})
+            
+        } else {
+            const prodata =showAllProducts.map((products)=>({pictures:products.pictures,
+                proname:products.proname,
+                proprice:products.proprice,
+                procategory:products.procategory.producttype,
+                prostatus:products.prostatus
+
+                
+            }))
+            console.log(prodata);
+            
+            res.status(200).json({'sts':0,message:'this is your all products',
+            'allpro':showAllProducts ,'prodata':prodata,
+        })
+            
+        }
+        
+    } catch (error) {
+        res.status(500).json({'sts0':2,message:'not fount any product something error','error':error})
+    }
+}
 
 
-module.exports={addproduct}
+
+module.exports={addproduct,getAllProducts}

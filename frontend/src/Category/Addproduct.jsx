@@ -1,8 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Navbar from '../commonComponent/Navbar';
+import ToastShow from '../commonComponent/ToastShow';
+import { Link } from 'react-router-dom';
 
 const Addproduct = () => {
+    const [msg, setmsg] = useState("");
+    const [errortype, seterrortype] = useState("");
+    const [showToast, setshowToast] = useState(false);
+
+
     const [products, setProducts] = useState([]);
 
     const [formData, setFormData] = useState({
@@ -48,7 +55,16 @@ const Addproduct = () => {
             formDataToSend.append('prosaleend',formData.prosaleend)
 
             const res =await axios.post('http://localhost:5000/pro/addproduct',formDataToSend)
-            console.log(res);
+            
+            if(res.data.sts ===0){
+                setshowToast(true);
+                setmsg(res.data.message);
+                seterrortype("success");
+                setTimeout(() => {
+                  setshowToast(false);
+                }, 3000);
+
+            }
 
 
         // Clear form after successful submission if needed
@@ -66,6 +82,16 @@ const Addproduct = () => {
             
             
         } catch (error) {
+            if (error.response && error.response.data && error.response.data.sts) {
+
+                setshowToast(true);
+                setmsg(error.response.data.message);
+                seterrortype("error");
+                setTimeout(() => {
+                  setshowToast(false);
+                }, 3000);
+                }
+
             console.log('frontend product add failed');
             console.log('error',error);
             
@@ -100,7 +126,9 @@ const Addproduct = () => {
         <Navbar/>
         
         
-        <h5 className='proh5'>Add product</h5>
+        <h2 className='proh5'>Add product</h2>
+        <ToastShow msg={msg} errortype={errortype} showToast={showToast} />
+
         <form  className='proform'  onSubmit={handleSubmit}> 
         <div className='prodiv2'>
 
@@ -182,6 +210,9 @@ const Addproduct = () => {
 
 
         </form>
+        <br />
+
+        <Link to={'/getproduct'} style={{color:'white'}}>show products</Link>
 
 
     </div>

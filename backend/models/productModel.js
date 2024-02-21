@@ -61,4 +61,4 @@ const productSchems =new mongoose.Schema({
 
 const productDB = mongoose.model('productDB',productSchems);
 
-module.exports=productDB;
+module.exports=productDB; 

@@ -5,7 +5,7 @@ const fs = require('fs');
 const shortid=require('shortid')
 const path =require('path')
 
-const {addproduct} =require('../controllers/productcontroller')
+const {addproduct ,getAllProducts} =require('../controllers/productcontroller')
 
 
 //mutler configuration ..
@@ -28,7 +28,13 @@ const upload = multer({ storage: storage });
 
 
 // ADD PRODUCT
+//http://localhost:5000/pro/addproduct
 proRoute.post('/addproduct' ,upload.single('pictures'),addproduct);
+
+
+//GEt all products
+//http://localhost:5000/pro/getproduct
+proRoute.get('/getproduct',getAllProducts)
 
 
 

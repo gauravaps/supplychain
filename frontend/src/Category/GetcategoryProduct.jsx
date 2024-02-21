@@ -70,6 +70,7 @@ const GetcategoryProduct = () => {
                             <button onClick={()=>deleteproduct(product._id)} className='prodelete'>Delete</button>
                         </div>
                         
+                        
                     ))}
                 </div>
             )}

@@ -9,6 +9,7 @@ import ResetpassLink from "./Admincomponents/ResetpassLink";
 import CategoryAdd from "./Category/CategoryAdd";
 import GetcategoryProduct from "./Category/GetcategoryProduct";
 import Addproduct from "./Category/Addproduct";
+import GetProducts from "./Category/GetProducts";
 
 const App = () => {
 
@@ -99,7 +100,8 @@ const App = () => {
         <Route element={<Navigate to="/adminlogin" />} />
 
         <Route path="/addproduct" element={isLoggedIn ? <Addproduct/> : < Navigate to="/adminlogin"/>} />
-      
+
+        <Route path="/getproduct" element={isLoggedIn? <GetProducts/> :<Navigate to= "/adminlogin"/>}/>
 
 
       </Routes>

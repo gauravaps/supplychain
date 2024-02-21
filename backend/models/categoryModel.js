@@ -18,4 +18,4 @@ const productcategorschema=new mongoose.Schema({
 
 const categoryProduct=mongoose.model('categoryPoduct',productcategorschema)
 
-module.exports=categoryProduct;
+module.exports=categoryProduct; 
