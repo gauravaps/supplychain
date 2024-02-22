@@ -45,10 +45,12 @@ const getAllProducts =async(req,res)=>{
             
         } else {
             const prodata =showAllProducts.map((products)=>({pictures:products.pictures,
+                _id:products._id,
                 proname:products.proname,
                 proprice:products.proprice,
                 procategory:products.procategory.producttype,
                 prostatus:products.prostatus
+                
 
                 
             }))
@@ -63,8 +65,31 @@ const getAllProducts =async(req,res)=>{
     } catch (error) {
         res.status(500).json({'sts0':2,message:'not fount any product something error','error':error})
     }
+} 
+ 
+//CHANGE PRODUCTS  status.
+
+const changeProductStatus =async(req,res) =>{
+    const { productids, newstatus } = req.body;
+
+    try {
+        const result = await productDB.updateMany({_id:{$in:productids}},{prostatus:newstatus})
+
+        if (!result) {
+          return  res.status(400).json({'sts':1,message:'status change failed by IDS'})
+            
+        } else {
+          return  res.status(200).json({'sts':0,message:'Multiple products updated successfully','result': result})
+            
+        }
+        
+    } catch (error) {
+        console.error('Error updating multiple products:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+        
+    }
 }
 
 
 
-module.exports={addproduct,getAllProducts}
+module.exports={addproduct,getAllProducts ,changeProductStatus}

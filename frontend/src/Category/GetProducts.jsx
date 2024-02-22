@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../commonComponent/Navbar'
 
 const GetProducts = () => {
-    const [getproduct,setgetproduct] =useState([])
-
+    const [getproduct,setgetproduct] =useState([]);
     const [searchtext, setsearchtext] = useState('');
+    const[getmultipleId,setgetmultipleId] =useState([])
+    const [checked,setchecked]=useState('')
 
 
 
@@ -34,9 +35,54 @@ const GetProducts = () => {
     },[])
 
     //filter function 
-   // const filterproduct =getproduct.filter(pro =>pro.proname.toLowerCase().includes(searchtext.toLowerCase()))
-
     const filterproduct =getproduct.filter((pro)=>(pro.proname.toLowerCase().includes(searchtext.toLowerCase())))
+
+    //handel status change
+    const handelchangestatus =(productId) =>{
+        const updatedIds =getmultipleId.includes(productId)?getmultipleId.filter((id) =>id !==productId)
+        :[...getmultipleId,productId]
+
+        setgetmultipleId(updatedIds) 
+        console.log(updatedIds);
+        
+        
+        
+        
+        
+        
+
+    }
+    
+
+    
+
+
+
+    const changeproductStatus =async( newstatus) =>{
+
+        try {
+            const restatus =await axios.put('http://localhost:5000/pro/changemany',
+            {productids:getmultipleId, newstatus:newstatus})
+
+        
+
+            console.log(restatus.data);
+
+            getallproduct()
+            setgetmultipleId([])
+            
+
+        
+        } catch (error) {
+            console.log('status change failed');
+            console.log(error);
+            
+        }
+        
+
+        
+
+    }
 
 
   return (
@@ -67,18 +113,23 @@ const GetProducts = () => {
                         </thead>
                         <tbody className='gettbody'>
                             {
-                                filterproduct.map((itmes ,index)=>(
+                                filterproduct.map((items ,index)=>(
                                     <tr className='gettr'>
                                         <td className='gettd'>{index+1}</td>
-                                    <td className='gettd'><img className='getimg' src={`http://localhost:5000/prouploads/${itmes.pictures}`}
+                                    <td className='gettd'><img className='getimg' src={`http://localhost:5000/prouploads/${items.pictures}`}
                                     width={'100px'}
-                                    alt={itmes.proname}/> </td>
+                                    alt={items.proname}/> </td>
                                     
-                                    <td className='gettd'>{itmes.proname}</td>
-                                    <td className='gettd'>{itmes.procategory} </td>
-                                    <td className='gettd'>{itmes.proprice}</td>
-                                    <td className='gettd'>{itmes.prostatus} </td>
-                                    <td className='gettd'> wait </td>
+                                    <td className='gettd'>{items.proname}</td>
+                                    <td className='gettd'>{items.procategory} </td>
+                                    <td className='gettd'>{items.proprice}</td>
+                                    <td className='gettd'>{items.prostatus} </td>
+                                    <td className='gettd'>
+                                        {/* <button onClick={()=>handelchangestatus(items._id)}>tongle select</button> */}
+                  <input type="checkbox" checked={getmultipleId.includes(items._id)}    
+                  onClick={()=>handelchangestatus(items._id)} />
+                                    
+                                     </td>
                                     
 
                                     </tr>
@@ -86,8 +137,13 @@ const GetProducts = () => {
                             }
 
                         </tbody>
+                         
                     </table>
                 </div>
+                
+                <button onClick={() => changeproductStatus('pending')}>pending</button> 
+                 <button onClick={() => changeproductStatus('enable')}>enable</button>
+                <button onClick={() => changeproductStatus('disable')}>disable</button>
             </div>
 
         </div>
@@ -95,4 +151,4 @@ const GetProducts = () => {
   )
 }
 
-export default GetProducts
+export default GetProducts 

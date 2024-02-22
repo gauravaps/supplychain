@@ -5,7 +5,7 @@ const fs = require('fs');
 const shortid=require('shortid')
 const path =require('path')
 
-const {addproduct ,getAllProducts} =require('../controllers/productcontroller')
+const {addproduct ,getAllProducts,changeProductStatus} =require('../controllers/productcontroller')
 
 
 //mutler configuration ..
@@ -35,6 +35,11 @@ proRoute.post('/addproduct' ,upload.single('pictures'),addproduct);
 //GEt all products
 //http://localhost:5000/pro/getproduct
 proRoute.get('/getproduct',getAllProducts)
+
+//change multiple  products status
+//http://localhost:5000/pro/changemany
+proRoute.put('/changemany' ,changeProductStatus)
+
 
 
 
