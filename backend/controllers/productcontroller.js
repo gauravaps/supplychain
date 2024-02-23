@@ -90,6 +90,28 @@ const changeProductStatus =async(req,res) =>{
     }
 }
 
+//Delete many ...
+
+const deleteManyProduct =async(req,res)=>{
+    const {deleteids} =req.body;
+
+    try {
+        const deletemany =await productDB.deleteMany({_id:{$in:deleteids}})
+
+        if(!deletemany){
+            res.status(400).json({'sts':1, message:'No product ids found to delete'})
+        }else{
+            res.status(200).json({'sts':0 , message:"products deleted successfully"})
+        }
+        
+    } catch (error) {
+        
+        console.error('Error deleting multiple products:', error);
+        return res.status(500).json({ message: 'Internal server error in delete times' });
+        
+    }
+}
 
 
-module.exports={addproduct,getAllProducts ,changeProductStatus}
+
+module.exports={addproduct,getAllProducts ,changeProductStatus ,deleteManyProduct}

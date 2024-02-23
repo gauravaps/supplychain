@@ -5,7 +5,7 @@ const fs = require('fs');
 const shortid=require('shortid')
 const path =require('path')
 
-const {addproduct ,getAllProducts,changeProductStatus} =require('../controllers/productcontroller')
+const {addproduct ,getAllProducts,changeProductStatus,deleteManyProduct} =require('../controllers/productcontroller')
 
 
 //mutler configuration ..
@@ -39,6 +39,11 @@ proRoute.get('/getproduct',getAllProducts)
 //change multiple  products status
 //http://localhost:5000/pro/changemany
 proRoute.put('/changemany' ,changeProductStatus)
+
+//Delete many products
+//http://localhost:5000/pro/delmany
+proRoute.delete('/delmany' , deleteManyProduct)
+
 
 
 
